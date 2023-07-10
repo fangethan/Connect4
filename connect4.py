@@ -10,7 +10,7 @@ def clear_screen():
 
     :return: None
     """
-    os.system('cls' if os.name == 'nt' else 'clear')
+    os.system("cls" if os.name == "nt" else "clear")
 
 
 def print_rules():
@@ -43,8 +43,12 @@ def validate_input(prompt, valid_inputs):
     user_input = input(prompt)
     invalid_input = True
     while invalid_input:
-        if user_input in valid_inputs:  # if function is used to check whether the user input is valid or not
-            invalid_input = False  # here invalid_input = False means the end of the loop
+        if (
+            user_input in valid_inputs
+        ):  # if function is used to check whether the user input is valid or not
+            invalid_input = (
+                False  # here invalid_input = False means the end of the loop
+            )
         else:
             print("Invalid input, please try again.")
             user_input = input(prompt)
@@ -61,7 +65,9 @@ def create_board():
     """
     board = []  # creating a list "board"
     for row in range(1, 7):  # range(1,7) will runs 6 times creating 6 rows.
-        board.append([0] * 7)  # everytime the loop is ran, 7x [0] will be append to each row.
+        board.append(
+            [0] * 7
+        )  # everytime the loop is ran, 7x [0] will be append to each row.
     return board
 
 
@@ -79,7 +85,9 @@ def print_board(board):
     print(" --- --- --- --- --- --- ---")
 
     for row in board:
-        row_str = "|"  # row_str represents the rows using the values from the list board
+        row_str = (
+            "|"  # row_str represents the rows using the values from the list board
+        )
         for cell in row:  # nested for loops to access each cell of the board
             if cell == 0:
                 row_str += "   |"  # if the value is 0 an empty space is added
@@ -88,7 +96,9 @@ def print_board(board):
             else:
                 row_str += " O |"  # if the value is 2 O is added
         print(row_str)  # prints the complete row
-        print(" --- --- --- --- --- --- ---")  # displays a horizontal line after each row
+        print(
+            " --- --- --- --- --- --- ---"
+        )  # displays a horizontal line after each row
     print("=============================")
 
 
@@ -124,8 +134,11 @@ def execute_player_turn(player, board):
     """
     # user_column_input responsiblity is to hold the valid column number from validate_input
     user_column_input = validate_input(
-        "Player " + str(player) + ", please enter the column you would like to drop your piece into: ",
-        ["1", "2", "3", "4", "5", "6", "7"])
+        "Player "
+        + str(player)
+        + ", please enter the column you would like to drop your piece into: ",
+        ["1", "2", "3", "4", "5", "6", "7"],
+    )
     # is_drop_piece_successful is a boolean to check whether or not the piece was dropped successfully. Starts off as False
     is_drop_piece_successful = False
 
@@ -140,8 +153,11 @@ def execute_player_turn(player, board):
             print("That column is full, please try again.")
             # asks the user to re-enter a new column number input, and continue the while loop until successful
             user_column_input = validate_input(
-                "Player " + str(player) + ", please enter the column you would like to drop your piece into: ",
-                ["1", "2", "3", "4", "5", "6", "7"])
+                "Player "
+                + str(player)
+                + ", please enter the column you would like to drop your piece into: ",
+                ["1", "2", "3", "4", "5", "6", "7"],
+            )
 
     # when drop piece is successful, return the column number the user input but as an integer
     return int(user_column_input)
@@ -165,8 +181,13 @@ def end_of_game(board):
     # rows range is subtracted by 3, so we don't go out of index range
     for row_index in range(NUM_ROWS - 3):
         for col_index in range(NUM_COLUMNS):
-            if board[row_index][col_index] == board[row_index + 1][col_index] == board[row_index + 2][col_index] == \
-                    board[row_index + 3][col_index] and board[row_index][col_index] != 0:
+            if (
+                board[row_index][col_index]
+                == board[row_index + 1][col_index]
+                == board[row_index + 2][col_index]
+                == board[row_index + 3][col_index]
+                and board[row_index][col_index] != 0
+            ):
                 if board[row_index][col_index] == 1:
                     return 1
                 else:
@@ -176,8 +197,13 @@ def end_of_game(board):
     # columns range is subtracted by 3, so we don't go out of index range
     for row_index in range(NUM_ROWS):
         for col_index in range(NUM_COLUMNS - 3):
-            if board[row_index][col_index] == board[row_index][col_index + 1] == board[row_index][col_index + 2] == \
-                    board[row_index][col_index + 3] and board[row_index][col_index] != 0:
+            if (
+                board[row_index][col_index]
+                == board[row_index][col_index + 1]
+                == board[row_index][col_index + 2]
+                == board[row_index][col_index + 3]
+                and board[row_index][col_index] != 0
+            ):
                 if board[row_index][col_index] == 1:
                     return 1
                 else:
@@ -187,8 +213,13 @@ def end_of_game(board):
     # row range is from 0 to 3 because in this instance, this is the only possible combinations of a diagonal
     for row_index in range(0, 3):
         for col_index in range(0, 4):
-            if board[row_index][col_index] == board[row_index + 1][col_index + 1] == board[row_index + 2][
-                col_index + 2] == board[row_index + 3][col_index + 3] and board[row_index][col_index] != 0:
+            if (
+                board[row_index][col_index]
+                == board[row_index + 1][col_index + 1]
+                == board[row_index + 2][col_index + 2]
+                == board[row_index + 3][col_index + 3]
+                and board[row_index][col_index] != 0
+            ):
                 if board[row_index][col_index] == 1:
                     return 1
                 else:
@@ -198,8 +229,13 @@ def end_of_game(board):
     # rows start at index 3 because that is the beginning of a possible diagonal
     for row_index in range(3, NUM_ROWS):
         for col_index in range(0, 4):
-            if board[row_index][col_index] == board[row_index - 1][col_index + 1] == board[row_index - 2][
-                col_index + 2] == board[row_index - 3][col_index + 3] and board[row_index][col_index] != 0:
+            if (
+                board[row_index][col_index]
+                == board[row_index - 1][col_index + 1]
+                == board[row_index - 2][col_index + 2]
+                == board[row_index - 3][col_index + 3]
+                and board[row_index][col_index] != 0
+            ):
                 if board[row_index][col_index] == 1:
                     return 1
                 else:
@@ -253,7 +289,7 @@ def local_2_player_game():
         print("Player 2 won!")
     else:
         print("It is a draw!")
-    
+
     print("Game will be returning to the main lobby in 3 seconds")
     time.sleep(3)
     main()
@@ -311,7 +347,6 @@ def cpu_player_easy(board, player):
             return random_column
 
 
-
 def cpu_player_medium(board, player):
     """
     Executes a move for the CPU on medium difficulty.
@@ -325,22 +360,30 @@ def cpu_player_medium(board, player):
     :return: Column that the piece was dropped into, int.
     """
     for column in range(1, 8):
-        board_copy = [[cell for cell in row] for row in
-                      board]  # makes a copy of the board to simulate the cpu dropping a piece
+        board_copy = [
+            [cell for cell in row] for row in board
+        ]  # makes a copy of the board to simulate the cpu dropping a piece
         if drop_piece(board_copy, player, column):
             if end_of_game(board_copy) == player:  # checks for an immediate win
-                drop_piece(board, player, column)  # if cpu wins a piece is dropped in the actual board
+                drop_piece(
+                    board, player, column
+                )  # if cpu wins a piece is dropped in the actual board
                 return column
 
     for column in range(1, 8):
-        board_copy = [[cell for cell in row] for row in
-                      board]  # makes a copy of the board to simulate player 1 dropping a piece
+        board_copy = [
+            [cell for cell in row] for row in board
+        ]  # makes a copy of the board to simulate player 1 dropping a piece
         if drop_piece(board_copy, 3 - player, column):
-            if end_of_game(board_copy) == 3 - player:  # checks for an immediate win to block
-                drop_piece(board, player, column)  # if player 1 wins cpu drops a piece in the actual board
+            if (
+                end_of_game(board_copy) == 3 - player
+            ):  # checks for an immediate win to block
+                drop_piece(
+                    board, player, column
+                )  # if player 1 wins cpu drops a piece in the actual board
                 return column
 
-    return cpu_player_easy(board,player)
+    return cpu_player_easy(board, player)
 
 
 def cpu_player_hard(board, player):
@@ -357,7 +400,7 @@ def cpu_player_hard(board, player):
     1) Check if we can be bottom middle to begin game
     2) Check if cpu can immediately win
     3) Check if player can immediately win to block
-    4) Block any chance a player can set up a 2 win way 
+    4) Block any chance a player can set up a 2 win way
     5) Check if cpu can form 3 pieces in a row to set up a fourth
     6) Check if player can form 3 pieces in a row to set up a fourth to block
     7) Check if player can form 2 pieces in a row to build a way to 4
@@ -366,26 +409,35 @@ def cpu_player_hard(board, player):
     """
 
     # to start the game, if user doesn't pick the bottom middle column first
-    if board[len(board) - 1][math.floor(len(board[1]) / 2)] == 0 and drop_piece(board, player,
-                                                                                math.floor(len(board[1]) / 2) + 1):
+    if board[len(board) - 1][math.floor(len(board[1]) / 2)] == 0 and drop_piece(
+        board, player, math.floor(len(board[1]) / 2) + 1
+    ):
         return math.floor(len(board[1]) / 2) + 1
 
     # checks for immediate win
     for column in range(1, 8):
-        board_copy = [[cell for cell in row] for row in
-                      board]  # makes a copy of the board to simulate the cpu dropping a piece
+        board_copy = [
+            [cell for cell in row] for row in board
+        ]  # makes a copy of the board to simulate the cpu dropping a piece
         if drop_piece(board_copy, player, column):
             if end_of_game(board_copy) == player:  # checks for an immediate win
-                drop_piece(board, player, column)  # if cpu wins a piece is dropped in the actual board
+                drop_piece(
+                    board, player, column
+                )  # if cpu wins a piece is dropped in the actual board
                 return column
 
     # checks for immediate block against player
     for column in range(1, 8):
-        board_copy = [[cell for cell in row] for row in
-                      board]  # makes a copy of the board to simulate player 1 dropping a piece
+        board_copy = [
+            [cell for cell in row] for row in board
+        ]  # makes a copy of the board to simulate player 1 dropping a piece
         if drop_piece(board_copy, 3 - player, column):
-            if end_of_game(board_copy) == 3 - player:  # checks for an immediate win to block
-                drop_piece(board, player, column)  # if player 1 wins cpu drops a piece in the actual board
+            if (
+                end_of_game(board_copy) == 3 - player
+            ):  # checks for an immediate win to block
+                drop_piece(
+                    board, player, column
+                )  # if player 1 wins cpu drops a piece in the actual board
                 return column
 
     # blocks a 2 way win from the player
@@ -398,7 +450,7 @@ def cpu_player_hard(board, player):
                         if prevent_two_way_win_from_user(board_copy, 3 - player):
                             drop_piece(board, player, column)
                             return column
-    
+
     # can the cpu forms 3 pieces in a row
     for column in range(1, 8):
         board_copy = [[cell for cell in row] for row in board]
@@ -435,6 +487,7 @@ def cpu_player_hard(board, player):
 
     return cpu_player_easy(board, player)
 
+
 # checks cpu does not put a piece down in a column, that gives player the automatic win
 def check_cpu_does_not_give_immediate_win(board, column):
     if drop_piece(board, 1, column):
@@ -442,7 +495,8 @@ def check_cpu_does_not_give_immediate_win(board, column):
             return False
     return True
 
-# tries to prevent the player having two ways to win the game at the same time 
+
+# tries to prevent the player having two ways to win the game at the same time
 def prevent_two_way_win_from_user(board, player):
     NUM_ROWS = len(board)
     NUM_COLUMNS = len(board[1])
@@ -450,30 +504,52 @@ def prevent_two_way_win_from_user(board, player):
     # check diagonal bottom left to top right
     for row_index in range(NUM_ROWS - 1, -1, -1):
         for col_index in range(NUM_COLUMNS):
-            if col_index < 4 and col_index > 0 and row_index < 5 and board[row_index][col_index] == \
-                    board[row_index - 1][col_index + 1] == board[row_index - 2][col_index + 2] and board[row_index - 3][
-                col_index + 3] == 0 and board[row_index + 1][col_index - 1] == 0 and board[row_index][
-                col_index] == player:
+            if (
+                col_index < 4
+                and col_index > 0
+                and row_index < 5
+                and board[row_index][col_index]
+                == board[row_index - 1][col_index + 1]
+                == board[row_index - 2][col_index + 2]
+                and board[row_index - 3][col_index + 3] == 0
+                and board[row_index + 1][col_index - 1] == 0
+                and board[row_index][col_index] == player
+            ):
                 return True
 
     # check diagonal bottom right to top left
     for row_index in range(NUM_ROWS - 1, -1, -1):
         for col_index in range(NUM_COLUMNS - 1, -1, -1):
-            if col_index > 1 and col_index < 6 and row_index < 5 and board[row_index][col_index] == \
-                    board[row_index - 1][col_index - 1] == board[row_index - 2][col_index - 2] and board[row_index - 3][
-                col_index - 3] == 0 and board[row_index + 1][col_index + 1] == 0 and board[row_index][
-                col_index] == player:
+            if (
+                col_index > 1
+                and col_index < 6
+                and row_index < 5
+                and board[row_index][col_index]
+                == board[row_index - 1][col_index - 1]
+                == board[row_index - 2][col_index - 2]
+                and board[row_index - 3][col_index - 3] == 0
+                and board[row_index + 1][col_index + 1] == 0
+                and board[row_index][col_index] == player
+            ):
                 return True
 
     # check horizontal
     for row_index in range(NUM_ROWS):
         for col_index in range(NUM_COLUMNS):
-            if col_index + 3 < 7 and col_index - 1 >= 0 and board[row_index][col_index] == board[row_index][
-                col_index + 1] == board[row_index][col_index + 2] and board[row_index][col_index + 3] == 0 and \
-                    board[row_index][col_index - 1] == 0 and board[row_index][col_index] == player:
+            if (
+                col_index + 3 < 7
+                and col_index - 1 >= 0
+                and board[row_index][col_index]
+                == board[row_index][col_index + 1]
+                == board[row_index][col_index + 2]
+                and board[row_index][col_index + 3] == 0
+                and board[row_index][col_index - 1] == 0
+                and board[row_index][col_index] == player
+            ):
                 return True
 
     return False
+
 
 # checks if cpu/player can form 3 pieces in a row
 def form_connect_three(board, player):
@@ -483,34 +559,56 @@ def form_connect_three(board, player):
     # check diagonal bottom left to top right
     for row_index in range(NUM_ROWS - 1, -1, -1):
         for col_index in range(NUM_COLUMNS):
-            if col_index < 4 and board[row_index][col_index] == board[row_index - 1][col_index + 1] == \
-                    board[row_index - 2][col_index + 2] and board[row_index - 3][col_index + 3] == 0 and \
-                    board[row_index][col_index] == player:
+            if (
+                col_index < 4
+                and board[row_index][col_index]
+                == board[row_index - 1][col_index + 1]
+                == board[row_index - 2][col_index + 2]
+                and board[row_index - 3][col_index + 3] == 0
+                and board[row_index][col_index] == player
+            ):
                 return True
 
     # check diagonal bottom right to top left
     for row_index in range(NUM_ROWS - 1, -1, -1):
         for col_index in range(NUM_COLUMNS - 1, -1, -1):
-            if col_index > 1 and board[row_index][col_index] == board[row_index - 1][col_index - 1] == \
-                    board[row_index - 2][col_index - 2] and board[row_index - 3][col_index - 3] == 0 and \
-                    board[row_index][col_index] == player:
+            if (
+                col_index > 1
+                and board[row_index][col_index]
+                == board[row_index - 1][col_index - 1]
+                == board[row_index - 2][col_index - 2]
+                and board[row_index - 3][col_index - 3] == 0
+                and board[row_index][col_index] == player
+            ):
                 return True
 
     # check horizontal
     for row_index in range(NUM_ROWS):
         for col_index in range(NUM_COLUMNS):
-            if col_index + 3 < 7 and board[row_index][col_index] == board[row_index][col_index + 1] == board[row_index][
-                col_index + 2] and board[row_index][col_index + 3] == 0 and board[row_index][col_index] == player:
+            if (
+                col_index + 3 < 7
+                and board[row_index][col_index]
+                == board[row_index][col_index + 1]
+                == board[row_index][col_index + 2]
+                and board[row_index][col_index + 3] == 0
+                and board[row_index][col_index] == player
+            ):
                 return True
 
     # check vertical
     for row_index in range(NUM_ROWS - 1, -1, -1):
         for col_index in range(NUM_COLUMNS):
-            if board[row_index][col_index] == board[row_index - 1][col_index] == board[row_index - 2][col_index] and \
-                    board[row_index - 3][col_index] == 0 and board[row_index][col_index] == player:
+            if (
+                board[row_index][col_index]
+                == board[row_index - 1][col_index]
+                == board[row_index - 2][col_index]
+                and board[row_index - 3][col_index] == 0
+                and board[row_index][col_index] == player
+            ):
                 return True
 
     return False
+
 
 # checks if cpu/player can form 2 pieces in a row
 def form_connect_two(board, player):
@@ -520,34 +618,55 @@ def form_connect_two(board, player):
     # check horizontal
     for row_index in range(NUM_ROWS):
         for col_index in range(NUM_COLUMNS):
-            if col_index + 2 < 7 and board[row_index][col_index] == board[row_index][col_index + 1] and \
-                    board[row_index][col_index + 2] == 0 and board[row_index][col_index] == player:
+            if (
+                col_index + 2 < 7
+                and board[row_index][col_index] == board[row_index][col_index + 1]
+                and board[row_index][col_index + 2] == 0
+                and board[row_index][col_index] == player
+            ):
                 return True
-            elif col_index - 1 > 0 and col_index + 1 < 6 and board[row_index][col_index] == board[row_index][
-                col_index + 1] and board[row_index][col_index - 1] == 0 and board[row_index][col_index] == player:
+            elif (
+                col_index - 1 > 0
+                and col_index + 1 < 6
+                and board[row_index][col_index] == board[row_index][col_index + 1]
+                and board[row_index][col_index - 1] == 0
+                and board[row_index][col_index] == player
+            ):
                 return True
 
     for row_index in range(NUM_ROWS - 1, -1, -1):
         for col_index in range(NUM_COLUMNS):
-            if col_index < 5 and board[row_index][col_index] == board[row_index - 1][col_index + 1] and \
-                    board[row_index - 2][col_index + 2] == 0 and board[row_index][col_index] == player:
+            if (
+                col_index < 5
+                and board[row_index][col_index] == board[row_index - 1][col_index + 1]
+                and board[row_index - 2][col_index + 2] == 0
+                and board[row_index][col_index] == player
+            ):
                 return True
 
     # check diagonal bottom right to top left
     for row_index in range(NUM_ROWS - 1, -1, -1):
         for col_index in range(NUM_COLUMNS - 1, -1, -1):
-            if col_index > 0 and board[row_index][col_index] == board[row_index - 1][col_index - 1] and \
-                    board[row_index - 2][col_index - 2] == 0 and board[row_index][col_index] == player:
+            if (
+                col_index > 0
+                and board[row_index][col_index] == board[row_index - 1][col_index - 1]
+                and board[row_index - 2][col_index - 2] == 0
+                and board[row_index][col_index] == player
+            ):
                 return True
 
     # check vertical
     for row_index in range(NUM_ROWS - 1, -1, -1):
         for col_index in range(NUM_COLUMNS):
-            if board[row_index][col_index] == board[row_index - 1][col_index] and board[row_index - 2][
-                col_index] == 0 and board[row_index][col_index] == player:
+            if (
+                board[row_index][col_index] == board[row_index - 1][col_index]
+                and board[row_index - 2][col_index] == 0
+                and board[row_index][col_index] == player
+            ):
                 return True
 
     return False
+
 
 def game_against_cpu():
     """
@@ -570,7 +689,9 @@ def game_against_cpu():
 
     display_count = 0
 
-    difficulty_option = int(input("Select CPU difficulty level of Easy (1), Medium (2), Hard (3): "))
+    difficulty_option = int(
+        input("Select CPU difficulty level of Easy (1), Medium (2), Hard (3): ")
+    )
 
     while not valid_option:
         if difficulty_option == 1 or difficulty_option == 2 or difficulty_option == 3:
@@ -581,7 +702,9 @@ def game_against_cpu():
             print("Easy: 1")
             print("Medium: 2")
             print("Hard: 3")
-            difficulty_option = int(input("Select CPU difficulty level of Easy (1), Medium (2), Hard (3): "))
+            difficulty_option = int(
+                input("Select CPU difficulty level of Easy (1), Medium (2), Hard (3): ")
+            )
 
     while end_of_game(board) == 0:
         clear_screen()
@@ -603,7 +726,9 @@ def game_against_cpu():
                 move = cpu_player_medium(board, 2)
             elif difficulty_option == 3:
                 move = cpu_player_hard(board, 2)
-            display_previous_move += "\nPlayer 2 (CPU) dropped a piece into column " + str(move)
+            display_previous_move += (
+                "\nPlayer 2 (CPU) dropped a piece into column " + str(move)
+            )
             is_user_turn = True
             display_count += 1
 
@@ -623,6 +748,3 @@ def game_against_cpu():
 
 if __name__ == "__main__":
     main()
-
-
-
